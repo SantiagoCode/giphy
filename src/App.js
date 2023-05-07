@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App">
       <section className="App-content">
-        <h1>useContext</h1>
+        <h1>Giphy</h1>
 
         <label for="search">Buscar:</label>
         <input
