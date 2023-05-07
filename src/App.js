@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { useState, useEffect, useContext } from "react";
+import getGifs from "./services/fetch.js";
 
 function App() {
+  const [gifs, setGifs] = useState([]);
+  const [keyword, setKeyword] = useState([""]);
+
+  useEffect(
+    function () {
+      getGifs(keyword).then((newGifs) => setGifs(newGifs));
+    },
+    [keyword]
+  );
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="App-content">
+        <h1>useContext</h1>
+
+        <label for="search">Buscar:</label>
+        <input
+          id="search"
+          type="text"
+          name="search"
+          value={keyword}
+          onChange={(e) => setKeyword(e.target.value)}
+        />
+
+        <div className="App-container">
+          {gifs.map((gif) => {
+            return (
+              <div>
+                <h4>{gif.title}</h4>
+                <img src={gif.url} alt={gif.title} />
+              </div>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }
