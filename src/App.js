@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect, useContext } from "react";
-import getGifs from "./services/fetch.js";
+import getGifs from "./services/fetch";
+import Gif from "./components/Gif";
 
 function App() {
   const [gifs, setGifs] = useState([]);
@@ -9,6 +10,7 @@ function App() {
   useEffect(
     function () {
       getGifs(keyword).then((newGifs) => setGifs(newGifs));
+      console.log("renderizado");
     },
     [keyword]
   );
@@ -21,6 +23,7 @@ function App() {
         <label for="search">Buscar:</label>
         <input
           id="search"
+          className="App-input"
           type="text"
           name="search"
           value={keyword}
@@ -28,14 +31,9 @@ function App() {
         />
 
         <div className="App-container">
-          {gifs.map((gif) => {
-            return (
-              <div>
-                <h4>{gif.title}</h4>
-                <img src={gif.url} alt={gif.title} />
-              </div>
-            );
-          })}
+          {gifs.map((gif) => (
+            <Gif key={gif.id} title={gif.title} id={gif.id} url={gif.url} />
+          ))}
         </div>
       </section>
     </div>

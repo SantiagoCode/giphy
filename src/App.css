@@ -30,3 +30,8 @@
   border: 8px solid black;
   height: 200px;
 }
+
+.App-input {
+  padding: 1rem;
+  font-size: 2rem;
+}
